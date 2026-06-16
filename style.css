@@ -1,0 +1,26 @@
+@font-face {
+  font-family: "Merriweather";
+  src: url("https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap");
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Merriweather", serif;
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+.left {
+  background: url("images/background.jpg") no-repeat center / cover;
+  height: 100%;
+  width: 33vw;
+}
+.right {
+  height: 100%;
+  padding: 3rem;
+}

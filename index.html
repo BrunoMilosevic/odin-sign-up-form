@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>Sign Up</title>
   </head>
   <body>
     <div class="container">
@@ -14,42 +14,49 @@
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
             velit, quod nesciunt consequuntur in illum inventore sint adipisci
-            dolores? Perspiciatis quam at libero minima porro eligendi ipsum rem
-            ipsa laboriosam?
+            dolores?
           </p>
           <p>Lorem ipsum dolor sit amet</p>
         </div>
+        <h3>Let's do this</h3>
         <form action="#">
-          <h3>Let's do this</h3>
           <div class="input-fields">
-            <label for="first-name">First Name</label>
-            <input type="text" name="first-name" id="first-name" required />
-            <label for="last-name">Last Name</label>
-            <input type="text" name="last-name" id="last-name" required />
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" required />
-            <label for="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              required
-              oninput="confirm_password.pattern = this.value"
-            />
-            <label for="confirm_pass">Confirm Password</label>
-            <input
-              type="password"
-              name="confirm_pass"
-              id="confirm_pass"
-              required
-              pattern=""
-              title="Password must match"
-            />
+            <div class="first-name-">
+              <label for="first-name">First Name</label>
+              <input type="text" name="first-name" id="first-name" required />
+            </div>
+            <div class="last-name-div">
+              <label for="last-name">Last Name</label>
+              <input type="text" name="last-name" id="last-name" required />
+            </div>
+            <div class="email-div">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" required />
+            </div>
+            <div class="password-div">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Password must contain at least one number, one uppercase letter, one lowercase letter and be 8 characters long "
+                required
+              />
+              <label for="confirm_pass">Confirm Password</label>
+              <input
+                type="password"
+                name="confirm_pass"
+                id="confirm_pass"
+                required
+                title="Password must match"
+              />
+            </div>
           </div>
           <div class="submit-field">
             <button type="submit">Create Account</button>
             <p class="already-account">
-              Already have an acount? <a href="#">Log In</a>
+              Already have an account? <a href="./login.html">Log In</a>
             </p>
           </div>
         </form>

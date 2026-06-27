@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Log In</title>
+  </head>
+  <body>
+    <div class="container">
+      <section class="left"></section>
+      <section class="right login">
+        <h3>Welcome Back!</h3>
+        <form action="#" class="login-form">
+          <div class="input-fields login-fields">
+            <div class="email-div">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" required />
+            </div>
+            <div class="password-div">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Password must contain at least one number, one uppercase letter, one lowercase letter and be 8 characters long "
+                required
+              />
+            </div>
+          </div>
+          <div class="submit-field">
+            <button type="submit">Create Account</button>
+            <p class="already-account">
+              Already have an account? <a href="#">Log In</a>
+            </p>
+          </div>
+        </form>
+      </section>
+    </div>
+  </body>
+</html>

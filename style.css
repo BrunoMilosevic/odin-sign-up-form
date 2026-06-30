@@ -42,6 +42,7 @@ h3 {
 .input-fields {
   display: flex;
   flex-wrap: wrap;
+  font-size: 1.5rem;
 }
 .input-fields h3 {
   margin-bottom: 3rem;
@@ -59,11 +60,22 @@ input {
   letter-spacing: 0.3rem;
   background-color: var(--font-color);
 }
+input:user-invalid {
+  border: 1px solid red;
+}
 button {
   padding: 5px;
   color: #283d2a;
   font-weight: 700;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
+}
+button:hover {
+  cursor: pointer;
+}
+.already-account a,
+.no-account a {
+  color: var(--font-color);
 }
 .login {
   width: 100%;
@@ -71,10 +83,17 @@ button {
   justify-content: center;
   align-items: center;
 }
-.login-form {
-  width: 100%;
-}
+
 .login-fields {
   display: flex;
   flex-direction: column;
+}
+.login-fields div {
+  width: 100%;
+}
+.login-header {
+  font-size: 3rem;
+}
+.login-submit {
+  text-align: center;
 }

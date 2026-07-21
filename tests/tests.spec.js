@@ -103,6 +103,13 @@ test("TC-006: Verify Password Validation", async ({ page }) => {
 });
 test("TC-007: Verify Password Confirmation Validation", async ({ page }) => {
   await page.goto(url);
+  page.on("dialog", async (dialog) => {
+    expect(dialog.type()).toBe("alert");
+
+    expect(dialog.message()).toBe("Passwords don't match");
+
+    await dialog.accept();
+  });
   const email = page.locator("#email");
   const firstName = page.locator("#first-name");
   const lastName = page.locator("#last-name");
@@ -118,6 +125,4 @@ test("TC-007: Verify Password Confirmation Validation", async ({ page }) => {
   await confirmPass.fill(invalidPassword);
 
   await submitBtn.click();
-
-  await expect(d);
 });

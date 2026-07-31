@@ -1,22 +1,21 @@
 const { test, expect } = require("@playwright/test");
-const url = "https://brunomilosevic.github.io/odin-sign-up-form/";
+const URL = "https://brunomilosevic.github.io/odin-sign-up-form/";
 const validTestData = {
   name: "John",
   lastName: "Johnson",
   email: "johnjohnson@gmail.com",
   password: "JohnJohnson123",
-  confirmPassword: "JohnJohnson123",
 };
 
 test("TC-001: Verify Sign Up Page Loads", async ({ page }) => {
-  await page.goto(url);
+  await page.goto(URL);
 
   const form = page.locator("form");
 
   await expect(form).toBeVisible();
 });
 test("TC-002: Verify Valid Input in All Fields", async ({ page }) => {
-  await page.goto(url);
+  await page.goto(URL);
 
   const firstName = page.locator("#first-name");
   const lastName = page.locator("#last-name");
@@ -29,7 +28,7 @@ test("TC-002: Verify Valid Input in All Fields", async ({ page }) => {
   await lastName.fill(validTestData.lastName);
   await email.fill(validTestData.email);
   await password.fill(validTestData.password);
-  await confirmPass.fill(validTestData.confirmPassword);
+  await confirmPass.fill(validTestData.password);
 
   for (const input of allInputs) {
     await expect(input).not.toHaveCSS("border-color", "red");
@@ -37,7 +36,7 @@ test("TC-002: Verify Valid Input in All Fields", async ({ page }) => {
 });
 
 test("TC-003: Verify Invalid Name Validation", async ({ page }) => {
-  await page.goto(url);
+  await page.goto(URL);
 
   const invalidName = "1234@";
   const firstName = page.locator("#first-name");
@@ -47,7 +46,7 @@ test("TC-003: Verify Invalid Name Validation", async ({ page }) => {
   await expect(firstName).toHaveCSS("border-color", "red");
 });
 test("TC-004: Verify Invalid Last Name Validation", async ({ page }) => {
-  await page.goto(url);
+  await page.goto(URL);
 
   const invalidLastName = "3324@32!";
   const lastName = page.locator("#last-name");
@@ -57,7 +56,7 @@ test("TC-004: Verify Invalid Last Name Validation", async ({ page }) => {
   await expect(lastName).toHaveCSS("border-color", "red");
 });
 test("TC-005: Verify Email Validation", async ({ page }) => {
-  await page.goto(url);
+  await page.goto(URL);
 
   const invalidEmail = "jh324";
   const email = page.locator("#email");
@@ -72,7 +71,7 @@ test("TC-005: Verify Email Validation", async ({ page }) => {
   await firstName.fill(validTestData.name);
   await lastName.fill(validTestData.lastName);
   await password.fill(validTestData.password);
-  await confirmPass.fill(validTestData.confirmPassword);
+  await confirmPass.fill(validTestData.password);
 
   await submitBtn.click();
 
@@ -80,7 +79,7 @@ test("TC-005: Verify Email Validation", async ({ page }) => {
   await expect(form).toBeVisible(); // If form is visible that means we are on the signup page rather than login page
 });
 test("TC-006: Verify Password Validation", async ({ page }) => {
-  await page.goto(url);
+  await page.goto(URL);
 
   const email = page.locator("#email");
   const firstName = page.locator("#first-name");
@@ -102,7 +101,7 @@ test("TC-006: Verify Password Validation", async ({ page }) => {
   await expect(form).toBeVisible();
 });
 test("TC-007: Verify Password Confirmation Validation", async ({ page }) => {
-  await page.goto(url);
+  await page.goto(URL);
   page.on("dialog", async (dialog) => {
     expect(dialog.type()).toBe("alert");
 
@@ -123,6 +122,80 @@ test("TC-007: Verify Password Confirmation Validation", async ({ page }) => {
   await lastName.fill(validTestData.lastName);
   await password.fill(validTestData.password);
   await confirmPass.fill(invalidPassword);
+
+  await submitBtn.click();
+});
+test("TC-008: Verify Successful Registration", async ({ page }) => {
+  await page.goto(URL);
+
+  const submitBtn = page.locator("#submit-btn");
+  const email = page.locator("#email");
+  const firstName = page.locator("#first-name");
+  const lastName = page.locator("#last-name");
+  const password = page.locator("#password");
+  const confirmPass = page.locator("#confirm_pass");
+
+  await email.fill(validTestData.email);
+  await firstName.fill(validTestData.name);
+  await lastName.fill(validTestData.lastName);
+  await password.fill(validTestData.password);
+  await confirmPass.fill(validTestData.password);
+
+  await submitBtn.click();
+
+  await expect(page.locator(".login-header")).toHaveText(
+    "ACCOUNT SUCCESSFULY CREATED!",
+  );
+});
+test(" Verify Sign Up with Invalid Data", async ({ page }) => {
+  await page.goto(URL);
+
+  const submitBtn = page.locator("#submit-btn");
+  const email = page.locator("#email");
+  const firstName = page.locator("#first-name");
+  const lastName = page.locator("#last-name");
+  const password = page.locator("#password");
+  const confirmPass = page.locator("#confirm_pass");
+
+  const invalidEmail = "123@";
+  const invalidFirstName = "3fG";
+  const invalidLastName = "j3G";
+  const invalidPassword = "pass";
+
+  await email.fill(invalidEmail);
+  await firstName.fill(invalidFirstName);
+  await lastName.fill(invalidLastName);
+  await password.fill(invalidPassword);
+  await confirmPass.fill(invalidPassword);
+
+  await submitBtn.click();
+
+  await expect(page.locator(".login-header")).not.toBeVisible();
+});
+
+test("Verify Sign Up with Mismatched Passwords", async ({ page }) => {
+  await page.goto(URL);
+
+  page.on("dialog", async (dialog) => {
+    expect(dialog.type()).toBe("alert");
+
+    expect(dialog.message()).toBe("Passwords don't match");
+
+    await dialog.accept();
+  });
+
+  const submitBtn = page.locator("#submit-btn");
+  const email = page.locator("#email");
+  const firstName = page.locator("#first-name");
+  const lastName = page.locator("#last-name");
+  const password = page.locator("#password");
+  const confirmPass = page.locator("#confirm_pass");
+
+  await email.fill(validTestData.email);
+  await firstName.fill(validTestData.name);
+  await lastName.fill(validTestData.lastName);
+  await password.fill(validTestData.password);
+  await confirmPass.fill("JohnJohnson12");
 
   await submitBtn.click();
 });

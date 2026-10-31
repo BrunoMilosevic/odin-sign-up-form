@@ -129,7 +129,6 @@ Fail
 
 ### Test Data
 
-Field: Value
 Email: jh324
 
 ### Steps
